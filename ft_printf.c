@@ -6,7 +6,7 @@
 /*   By: rengelbr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 10:48:24 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/19 20:34:01 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/08/29 08:45:49 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,25 @@ int		ft_printf(const char *format, ...)
 {
 	va_list			ap;
 	unsigned int	arg;
+	int				ret;
 //	unsigned int	*ptr;
 	const char			*str;
-	const char		*trav;
+	char		*trav;
 
 	va_start(ap, format);
-	trav = format;
-	while (*trav)
+	trav = (char*)format;
+	arg = 0;
+	ret = 0;
+	while (*trav != '\0')
 	{
-		while (*trav != '%')
+		while (*trav != '%' && *trav != '\0')
 		{
 			ft_putchar(*trav);
 			trav++;
+			ret++;
 		}
 		if (*trav == '%')
-			trav++;
+		{	trav++;
 		//Fetch + execute conversions
 
 // c	The int argument is converted to an unsigned char, and the
@@ -75,6 +79,7 @@ int		ft_printf(const char *format, ...)
 		{
 			arg = va_arg(ap, int);
 			ft_putchar(arg);
+			ret++;
 		}
 
 //s		The char * argument is expected to be a pointer to an array of
@@ -90,38 +95,36 @@ int		ft_printf(const char *format, ...)
 		{
 			str = va_arg(ap, char*);
 			ft_putstr_fd(str, 1);
+			ret += ft_strlen(str);
 		}
 //p		The void * pointer argument is printed in hexadecimal (as if by `%#x' or `%#lx').
-		// else if (*trav == 'p')
-		// {
-		// 	ptr = va_arg(ap, void*);
-		// 	ft_print
-		// }
+//		else if (*trav == 'p')
+//		{
+//			ptr = va_arg(ap, void*);
+//			ft_putstr(&ptr);
+//		}
 		else if (*trav == 'd')
 		{
 			arg = va_arg(ap, int);
-			ft_putnbr(arg);
+			ft_putnbr((int)arg);
+			//ret += len of arg;
 		}
 		trav++;
+		}
 	}
-	// else if (*format != '%')
-	// {
-	// 	while (*format)
-	// 	{
-	// 		write(1, format, 1);
-	// 		format++;
-	// 	}
 	va_end(ap);
-	return (0);
+	return (ret);
 }
 
 int main()
 {
 	char *str = "print this";
+	char c = 'f';
 	char *str1 = "now print this";
+	int nbr = 23;
 
 //	ft_putstr(str);
-	ft_printf("%s and %s\n", str, str1);
-//	ft_printf("\n");
+	ft_printf("%c, also %s and %s\n", c, str, str1);
+	ft_printf("\nnbr == %d", nbr);
 	return (0);
 }
