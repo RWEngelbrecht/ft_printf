@@ -6,14 +6,12 @@
 /*   By: rengelbr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 10:48:24 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/29 12:06:17 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/08/29 14:43:42 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdarg.h>
+#include "ft_printf.h"
 
 /*
 //stdarg.h Declares va_list type
@@ -86,7 +84,7 @@ int		ft_printf(const char *format, ...)
 	unsigned int	arg;
 	int				ret;
 //	void			*ptr;
-	const char		*str;
+//	const char		*str;
 	char			*trav;
 	short			sh;
 
@@ -117,11 +115,7 @@ int		ft_printf(const char *format, ...)
 		also restored to the original state after the character.
 	*/
 			if (*trav == 'c')
-			{
-				arg = va_arg(ap, int);
-				ft_putchar(arg);
-				ret++;
-			}
+				ret += print_char(ap);
 	/*
 	s:	The char * argument is expected to be a pointer to an array of
 		character type (pointer to a string).  Characters from the array
@@ -133,11 +127,7 @@ int		ft_printf(const char *format, ...)
 		NUL character.
 	*/
 			else if (*trav == 's')
-			{
-				str = va_arg(ap, char*);
-				ft_putstr_fd(str, 1);
-				ret += ft_strlen(str);
-			}
+				ret += print_string(ap);
 	/*
 	p	The void * pointer argument is printed in hexadecimal (as if by `%#x' 		or `%#lx').
 	*/
@@ -158,33 +148,19 @@ int		ft_printf(const char *format, ...)
 			digits, it is padded on the left with zeros.
 	*/
 			else if (*trav == 'd' || *trav == 'i')
-			{
-				arg = va_arg(ap, int);
-				ret += ft_intlen((int)arg);
-				ft_putnbr((int)arg);
-			}
+				ret += print_int_var(ap, "");
 			else if (*trav == 'h')
 			{
 				trav++;
 				if (*trav == 'd' || *trav == 'i')
+					print_int_var(ap, "h");
+				else if (*trav == 'o' || *trav == 'u' || *trav == 'x'
+							|| *trav == 'X')
 				{
-					if (va_arg(ap, int) <= 32767 || va_arg(ap, int) >= -32768)
-					{
-						sh = (short)va_arg(ap, int);
-						ret += ft_intlen((int)sh);
-						ft_putnbr((int)sh);
-					}
-					else
-					{
-						ft_putstr_fd("error: format specifies type 'short' but the argument has type 'int'", 2);
-						return (0);
-					}
+					sh = (unsigned short)va_arg(ap, int);
+					ret += ft_intlen((int)sh);
+					ft_putnbr((int)sh);
 				}
-			//	else if (*trav == 'o' || *trav == 'u' || *trav == 'x'
-			//				|| *trav == 'X')
-			//	{
-			//
-			//	}
 			}
 			trav++;
 		}
@@ -201,17 +177,18 @@ ft_printf must return the number of chars printed
 int main()
 {
 	char *str = "print this";
-	signed char c = 'd';
+	char c1 = 'c';
+	unsigned char c2 = 'u';
 	char *str1 = "now print this";
 	int nbr;
-	//short n = 32768;
+	unsigned short sh = 32767;
 	void *ptr;
 
 //	ft_putstr(str);
-	nbr = ft_printf("%c, also %s and %s\n", c, str, str1);
+	nbr = ft_printf("%c%c, also %s and %s\n", c1, c2, str, str1);
 	ptr = &nbr;
 	ft_printf("\nnbr == %d\n", nbr);
-	ft_printf("hd == %hd\n", 32768);
+	ft_printf("hi == %hi\n", sh);
 //	printf("hhd: %hhd\n", c);//prints "signed char" but not really. ascii val.
 //	printf("hd: %hd\n", nbr);//prints short
 //	printf("mem address: %p\n", ptr);
