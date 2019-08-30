@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 08:03:12 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/30 08:17:09 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/08/30 08:32:57 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int			isvalid(char c, int base)
 {
-	char	digits[17];
-	char	digits2[17];
+	char	*digits;
+	char	*digits2;
 
-	digits[17] = "0123456789abcdef";
-	digits2[17] = "0123456789ABCDEF";
+	digits = "0123456789abcdef";
+	digits2 = "0123456789ABCDEF";
 	while (base--)
 		if (digits[base] == c || digits2[base] == c)
 			return (1);
