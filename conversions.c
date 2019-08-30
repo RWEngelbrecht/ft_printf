@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conversions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rengelbr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:48:36 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/29 14:47:02 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/08/30 08:55:31 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int		print_int_var(va_list ap, char * var)
 {
 	short	sh;
 	int		ret;
-	int		arg;
+	unsigned int		arg;
 
 	sh = 0;
 	ret = 0;
-	if (ft_strcmp(var, "h"))
+	if (!ft_strcmp(var, "h"))
 	{
 		sh = (short)va_arg(ap, int);
 		ret = ft_intlen((int)sh);
@@ -58,11 +58,33 @@ int		print_int_var(va_list ap, char * var)
 	else
 	{
 		arg = va_arg(ap, int);
-		ret += ft_intlen((int)arg);
+		ret = ft_intlen((int)arg);
 		ft_putnbr((int)arg);
 	}
 
 	return (ret);
 }
 
-void	print_
+int		print_octal_var(va_list ap, char * var)
+{
+	int				ret;
+	int				arg;
+	void			*ptr;
+	unsigned short	sh;
+
+	if (!ft_strcmp(var, "h"))
+	{
+		sh = va_arg(ap, int);
+		ret = ft_intlen((int)sh);
+		ft_putnbr((int)sh);
+	}
+	else
+	{
+		arg = va_arg(ap, int);
+		ptr = &arg;
+		arg = ft_atoi_base((char*)ptr, 8);	/////make atoi_base for single ints?
+		ret = ft_intlen((int)arg);
+		ft_putnbr(arg);
+	}
+	return (ret);
+}
