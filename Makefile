@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rengelbr <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/10 10:52:30 by rengelbr          #+#    #+#              #
-#    Updated: 2019/08/29 13:59:57 by rengelbr         ###   ########.fr        #
+#    Updated: 2019/08/30 12:58:21 by rengelbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@
 LIB = libft/libft.a
 NAME = printf_test
 SRC = ft_printf.c \
-		conversions.c
+		conversions.c \
+		ft_printf_sub.c
 OBJ = $(SRC:.c=.o)
 
 all:
