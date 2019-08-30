@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 10:48:24 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/30 08:46:11 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/08/30 12:56:15 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,44 +38,45 @@ The format str can be 1 or multiple conversion specifications, each results in u
 It writes its output to stdout.
 */
 
-char	*ft_itoa_base(int value, int base)
-{
-	char	*base_str = "0123456789ABCDEF";
-	char	*ret;
-	long	num;
-	int		len;
+// char	*ft_itoa_base(int value, int base)
+// {
+// 	char	*base_str = "0123456789ABCDEF";
+// 	char	*ret;
+// 	long	num;
+// 	int		len;
 
-	len = 0;
-	if (value == 0)
-		return ("0");
-	if (value == 2147483647 && base == 10)
-		return ("2147483647");
-	if (value == -2147483648 && base == 10)
-		return ("-2147483648");
-	num = value;
-	while (num)
-	{
-		len++;
-		num /= base;
-	}
-	num = value;
-	if (value < 0)
-	{
-		if (base == 10)
-			len++;
-		num *= -1;
-	}
-	ret = (char*)malloc(sizeof(char) * len + 1);
-	ret[len] = '\0';
-	while (num)
-	{
-		ret[--len] = base_str[num % base];
-		num /= base;
-	}
-	if (value < 0 && base == 10)
-		ret[0] = '-';
-	return (ret);
-}
+// 	len = 0;
+// 	if (value == 0)
+// 		return ("0");
+// 	if (value == 2147483647 && base == 10)
+// 		return ("2147483647");
+// 	if (value == -2147483648 && base == 10)
+// 		return ("-2147483648");
+// 	num = value;
+// 	while (num)
+// 	{
+// 		len++;
+// 		num /= base;
+// 	}
+// 	num = value;
+// 	if (value < 0)
+// 	{
+// 		if (base == 10)
+// 			len++;
+// 		num *= -1;
+// 	}
+// 	ret = (char*)malloc(sizeof(char) * len + 1);
+// 	ret[len] = '\0';
+// 	while (num)
+// 	{
+// 		ret[--len] = base_str[num % base];
+// 		num /= base;
+// 	}
+// 	if (value < 0 && base == 10)
+// 		ret[0] = '-';
+// 	return (ret);
+// }
+
 
 
 
@@ -133,13 +134,8 @@ int		ft_printf(const char *format, ...)
 	/*
 	p	The void * pointer argument is printed in hexadecimal (as if by `%#x' 		or `%#lx').
 	*/
-											////DUNNO WTF YET
-			// else if (*trav == 'p')
-			// {
-			// 	ptr = va_arg(ap, void*);
-			// 	ft_putstr(ptr);
-			// }
-
+			else if (*trav == 'p')
+				ret += print_hex_mem(ap);
 	/*
 	diouxX	The int (or appropriate variant) argument is converted to signed
 			decimal (d and i), unsigned octal (o), unsigned decimal (u), or
@@ -153,19 +149,18 @@ int		ft_printf(const char *format, ...)
 				ret += print_int_var(ap, "");
 			else if (*trav == 'o')
 				ret += print_octal_var(ap, "");
-			// else if (*trav == 'h')
-			// {
-			// 	trav++;
-			// 	if (*trav == 'd' || *trav == 'i')
-			// 		print_int_var(ap, "h");
-			// 	else if (*trav == 'o' || *trav == 'u' || *trav == 'x'
-			// 				|| *trav == 'X')
-			// 	{
-			// 		sh = (unsigned short)va_arg(ap, int);
-			// 		ret += ft_intlen((int)sh);
-			// 		ft_putnbr((int)sh);
-			// 	}
-			// }
+			else if (*trav == 'h')
+			{
+				trav++;
+				if (*trav == 'd' || *trav == 'i')
+					print_int_var(ap, "h");
+				else if (*trav == 'o')
+				{
+					sh = (unsigned short)va_arg(ap, int);
+					ret += ft_intlen((int)sh);
+					ft_putnbr((int)sh);
+				}
+			}
 			trav++;
 		}
 	}
@@ -182,7 +177,7 @@ int main()
 {
 	char *str = "print this";
 	char c1 = 'c';
-//	char *ptr = &c1;
+//	void *ptr = &c1;
 	unsigned char c2 = 'u';
 	char *str1 = "now print this";
 	int nbr;
@@ -190,13 +185,15 @@ int main()
 	//void *ptr;
 
 //	ft_putstr(str);
-	nbr = ft_printf("%c%c, also %s and %s\n", c1, c2, str, str1);
+	nbr = ft_printf("%c %c, also %s and %s\n", c1, c2, str, str1);
 //	ptr = &nbr;
 	ft_printf("\nnbr == %d\n", nbr);
 	ft_printf("hi == %hi\n", sh);
-	ft_printf("o == %o\n", c1);
+//	ft_printf("o == %o\n", c1);
 //	printf("o: %o\n", c1);//prints "signed char" but not really. ascii val.
 //	printf("hd: %hd\n", nbr);//prints short
-//	printf("mem address: %p\n", ptr);
+//	printf("mem address == %p\n", (void*)&c1);
+	ft_printf("ft_mem address == %p\n", (void*)&c1);
+
 	return (0);
 }
