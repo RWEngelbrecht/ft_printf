@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:48:36 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/30 08:55:31 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/08/30 12:44:17 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ int		print_string(va_list ap)
 	str = va_arg(ap, char*);
 	ret = ft_strlen(str);
 	ft_putstr_fd(str, 1);
+
+	return (ret);
+}
+
+int		print_hex_mem(va_list ap)
+{
+	int		ret;
+	void	*ptr;
+
+	ret = 14;
+	ptr = va_arg(ap, void*);
+	ft_putstr("0x");
+	print_memory(&ptr, 6);
 
 	return (ret);
 }
