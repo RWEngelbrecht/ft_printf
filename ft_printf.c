@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rengelbr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 10:48:24 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/29 14:43:42 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/08/30 08:46:11 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ It writes its output to stdout.
 
 char	*ft_itoa_base(int value, int base)
 {
-	char *base_str = "0123456789ABCDEF";
-	char *ret;
-	long num;
-	int len;
+	char	*base_str = "0123456789ABCDEF";
+	char	*ret;
+	long	num;
+	int		len;
 
 	len = 0;
 	if (value == 0)
@@ -76,6 +76,8 @@ char	*ft_itoa_base(int value, int base)
 		ret[0] = '-';
 	return (ret);
 }
+
+
 
 #include <stdio.h>
 int		ft_printf(const char *format, ...)
@@ -149,19 +151,21 @@ int		ft_printf(const char *format, ...)
 	*/
 			else if (*trav == 'd' || *trav == 'i')
 				ret += print_int_var(ap, "");
-			else if (*trav == 'h')
-			{
-				trav++;
-				if (*trav == 'd' || *trav == 'i')
-					print_int_var(ap, "h");
-				else if (*trav == 'o' || *trav == 'u' || *trav == 'x'
-							|| *trav == 'X')
-				{
-					sh = (unsigned short)va_arg(ap, int);
-					ret += ft_intlen((int)sh);
-					ft_putnbr((int)sh);
-				}
-			}
+			else if (*trav == 'o')
+				ret += print_octal_var(ap, "");
+			// else if (*trav == 'h')
+			// {
+			// 	trav++;
+			// 	if (*trav == 'd' || *trav == 'i')
+			// 		print_int_var(ap, "h");
+			// 	else if (*trav == 'o' || *trav == 'u' || *trav == 'x'
+			// 				|| *trav == 'X')
+			// 	{
+			// 		sh = (unsigned short)va_arg(ap, int);
+			// 		ret += ft_intlen((int)sh);
+			// 		ft_putnbr((int)sh);
+			// 	}
+			// }
 			trav++;
 		}
 	}
@@ -178,18 +182,20 @@ int main()
 {
 	char *str = "print this";
 	char c1 = 'c';
+//	char *ptr = &c1;
 	unsigned char c2 = 'u';
 	char *str1 = "now print this";
 	int nbr;
 	unsigned short sh = 32767;
-	void *ptr;
+	//void *ptr;
 
 //	ft_putstr(str);
 	nbr = ft_printf("%c%c, also %s and %s\n", c1, c2, str, str1);
-	ptr = &nbr;
+//	ptr = &nbr;
 	ft_printf("\nnbr == %d\n", nbr);
 	ft_printf("hi == %hi\n", sh);
-//	printf("hhd: %hhd\n", c);//prints "signed char" but not really. ascii val.
+	ft_printf("o == %o\n", c1);
+//	printf("o: %o\n", c1);//prints "signed char" but not really. ascii val.
 //	printf("hd: %hd\n", nbr);//prints short
 //	printf("mem address: %p\n", ptr);
 	return (0);
