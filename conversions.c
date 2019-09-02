@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:48:36 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/09/02 13:01:29 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:47:18 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		print_string(va_list ap)
 	const char	*str;
 	int			ret;
 
-	str = va_arg(ap, char*);
+	str = va_arg(ap, const char*);
 	ret = ft_strlen(str);
 	ft_putstr_fd(str, 1);
 
@@ -58,7 +58,7 @@ int		print_int_var(va_list ap, char * var)
 
 	sh = 0;
 	ret = 0;
-	if (!ft_strcmp(var, "h"))
+	if (ft_strequ(var, "h"))
 	{
 		sh = (short)va_arg(ap, int);
 		ret = ft_intlen((int)sh);
@@ -98,5 +98,34 @@ int		print_octal_var(va_list ap, char * var)
 		str = ft_itoa_base(arg, 8);
 		ft_putstr(str);
 	}
+	return (ret);
+}
+
+int		print_unsigned_decimal(va_list ap)
+{
+	int ret;
+	int arg;
+
+	ret = 0;
+	arg = va_arg(ap, int);
+	if (arg >= 0)
+	{
+		ret = ft_intlen(arg);
+		ft_putnbr(arg);
+	}
+	return (ret);
+}
+
+int		print_hex(va_list ap)
+{
+	int ret;
+	int arg;
+	char *str;
+
+	ret = 0;
+	arg = va_arg(ap, int);
+	str = ft_itoa_base(arg, 16); ///make print with both capital + lowercase
+	ret = ft_strlen(str);
+	ft_putstr(str);
 	return (ret);
 }
