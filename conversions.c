@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:48:36 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/30 12:44:17 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/02 13:01:29 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		print_octal_var(va_list ap, char * var)
 {
 	int				ret;
 	int				arg;
-	void			*ptr;
+	char			*str;
 	unsigned short	sh;
 
 	if (!ft_strcmp(var, "h"))
@@ -94,10 +94,9 @@ int		print_octal_var(va_list ap, char * var)
 	else
 	{
 		arg = va_arg(ap, int);
-		ptr = &arg;
-		arg = ft_atoi_base((char*)ptr, 8);	/////make atoi_base for single ints?
-		ret = ft_intlen((int)arg);
-		ft_putnbr(arg);
+		ret = ft_intlen(arg);
+		str = ft_itoa_base(arg, 8);
+		ft_putstr(str);
 	}
 	return (ret);
 }
