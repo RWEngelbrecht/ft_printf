@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 10:48:24 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/09/02 14:11:59 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:46:18 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ int		ft_printf(const char *format, ...)
 				ret += print_int_var(ap, "");
 			else if (*trav == 'o')
 				ret += print_octal_var(ap, "");
+			else if (*trav == 'u')
+				ret += print_unsigned_decimal(ap);
+			else if (*trav == 'x')
+				ret += print_hex(ap);
 			else if (*trav == 'h')
 			{
 				trav++;
@@ -134,24 +138,24 @@ ft_printf must return the number of chars printed
 int main()
 {
 	char *str = "print this";
-	char c1 = 'c';
+	char c1 = 'A';
 //	void *ptr = &c1;
 	unsigned char c2 = 'u';
 	char *str1 = "ffffffff";
 	int nbr;
-	unsigned short sh = 32767;
+//	unsigned short sh = 32767;
 	//void *ptr;
 
 //	ft_putstr(str);
 	nbr = ft_printf("%c %c, also %s and %s\n", c1, c2, str, str1);
 	ft_printf("ft_mem address == %p\n", (void*)&c1);
 //	ptr = &nbr;
-	ft_printf("\nnbr == %d\n", nbr);
-	ft_printf("hi == %hi\n", sh);
-	//ft_printf("ft_o == %o\n", c1);
-	ft_printf("\n%o\n", c1);
-	printf("ft_atoi_base %d\n", ft_atoi_base("50", 8));
-	printf("u: %u\n", str1);//prints "signed char" but not really. ascii val.
+	ft_printf("ft_d == %d\n", nbr);
+	ft_printf("ft_i == %i\n", nbr);
+	ft_printf("ft_o == %o\n", c1);
+	ft_printf("ft_u == %u\n", c1);
+	ft_printf("ft_x == %x\n", 10);
+	printf("u: %u\n", -121);
 //	printf("hd: %hd\n", nbr);//prints short
 //	printf("mem address == %p\n", (void*)&c1);
 
