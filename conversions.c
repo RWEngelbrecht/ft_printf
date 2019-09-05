@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:48:36 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/09/05 12:03:41 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:07:32 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int		print_octal_var(va_list ap, char * var)
 
 	if (!ft_strcmp(var, "h"))
 	{
-		sh = va_arg(ap, int);
-		ret = ft_intlen((int)sh, 10);
-		ft_putnbr((int)sh);
+		sh = (unsigned short)va_arg(ap, unsigned int);
+		ret = ft_intlen(sh, 10);
+		ft_putnbr(sh);
 	}
 	else
 	{
@@ -101,15 +101,24 @@ int		print_octal_var(va_list ap, char * var)
 	return (ret);
 }
 
-int		print_unsigned_decimal(va_list ap)
+int		print_unsigned_var(va_list ap, char* var)
 {
-	int ret;
-	int arg;
+	int				ret;
+	int				arg;
+	unsigned short	sh;
 
 	ret = 0;
-	arg = va_arg(ap, int);
-	if (arg >= 0)
+	sh = 0;
+	arg = 0;
+	if (ft_strequ(var, "h"))
 	{
+		sh = (unsigned short)va_arg(ap, unsigned int);
+		ret = ft_intlen(sh, 10);
+		ft_putnbr(sh);
+	}
+	else
+	{
+		arg = va_arg(ap, unsigned int);
 		ret = ft_intlen(arg, 10);
 		ft_putnbr(arg);
 	}
