@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rengelbr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:17:59 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/29 09:09:54 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/05 08:54:01 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char			*ft_itoa(int n)
 
 	i = 0;
 	neg = 0;
-	if (!(str = ft_strnew(ft_intlen(n) + 1)))
+	if (!(str = ft_strnew(ft_intlen(n, 10) + 1)))
 		return (NULL);
 	if (n <= -2147483648)
 		return (ft_strdup("-2147483648"));
