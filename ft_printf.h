@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:56:00 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/09/05 12:03:02 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/05 13:42:52 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		print_string(va_list ap);
 int		print_int_var(va_list ap, char * var);
 int		print_octal_var(va_list ap, char * var);
 int		print_hex_mem(va_list ap);
-int		print_unsigned_decimal(va_list ap);
+int		print_unsigned_var(va_list ap, char * var);
 int		print_hex_small(va_list ap);
 int		print_hex_large(va_list ap);
 
