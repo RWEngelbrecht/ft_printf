@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rengelbr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 09:09:38 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/29 09:10:09 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/05 08:52:34 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_intlen(int n)
+int		ft_intlen(int n, int base)
 {
 	int		cnt;
 
-	cnt = 0;
+	cnt = 1;
 	if (n == 0)
-		return (cnt);
+		return (1);
 	else if (n < 0)
 	{
 		cnt++;
-		while (n /= 10)
+		while (n /= base)
 			cnt++;
 	}
 	else
 	{
-		while (n /= 10)
+		while (n /= base)
 			cnt++;
 	}
 	return (cnt);
