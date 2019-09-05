@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 11:52:26 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/08/30 12:27:36 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:00:14 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,4 @@ void	print_memory(const void *addr, size_t size)
         i += 6;
     }
     print_line_hex(&(arr[i]), (int)size - i);
-    write(1, "\n", 1);
 }
