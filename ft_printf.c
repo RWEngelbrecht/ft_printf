@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 10:48:24 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/09/05 12:03:25 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:03:37 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		ft_printf(const char *format, ...)
 			else if (*trav == 'o')
 				ret += print_octal_var(ap, "");
 			else if (*trav == 'u')
-				ret += print_unsigned_decimal(ap);
+				ret += print_unsigned_var(ap, "");
 			else if (*trav == 'x')
 				ret += print_hex_small(ap);
 			else if (*trav == 'X')
@@ -117,13 +117,11 @@ int		ft_printf(const char *format, ...)
 			{
 				trav++;
 				if (*trav == 'd' || *trav == 'i')
-					print_int_var(ap, "h");
+					ret += print_int_var(ap, "h");
 				else if (*trav == 'o')
-				{
-					sh = (unsigned short)va_arg(ap, int);
-					ret += ft_intlen((int)sh, 10);
-					ft_putnbr((int)sh);
-				}
+					ret += print_octal_var(ap, "h");
+				else if (*trav == 'u')
+					ret += print_unsigned_var(ap, "h");
 			}
 			trav++;
 		}
@@ -145,7 +143,7 @@ int main()
 	unsigned char c2 = 'u';
 	char *str1 = "ffffffff";
 	int nbr;
-//	unsigned short sh = 32767;
+	unsigned short sh = 32767;
 	//void *ptr;
 
 //	ft_putstr(str);
@@ -158,7 +156,9 @@ int main()
 	ft_printf("ft_u == %u\n", c1);
 	ft_printf("ft_x == %x\n", 545434562);
 	ft_printf("ft_X == %X\n", 545434562);
-	printf("x: %x\n", 545434562);
+	ft_printf("ft_hu == %hu\n", sh);
+	printf("hu: %hu\n", sh);
+	printf("u: %u\n", c1);
 
 //	printf("ft_itoa_base == %s\n", wtf);
 //	printf("mem address == %p\n", (void*)&c1);
