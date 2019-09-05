@@ -6,7 +6,7 @@
 /*   By: rengelbr <rengelbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:48:36 by rengelbr          #+#    #+#             */
-/*   Updated: 2019/09/02 15:47:18 by rengelbr         ###   ########.fr       */
+/*   Updated: 2019/09/05 12:03:41 by rengelbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		print_int_var(va_list ap, char * var)
 	if (ft_strequ(var, "h"))
 	{
 		sh = (short)va_arg(ap, int);
-		ret = ft_intlen((int)sh);
+		ret = ft_intlen((int)sh, 10);
 		ft_putnbr((int)sh);
 	}
 	// else if (ft_strcmp(var, "hh"))
@@ -71,7 +71,7 @@ int		print_int_var(va_list ap, char * var)
 	else
 	{
 		arg = va_arg(ap, int);
-		ret = ft_intlen((int)arg);
+		ret = ft_intlen((int)arg, 10);
 		ft_putnbr((int)arg);
 	}
 
@@ -88,13 +88,13 @@ int		print_octal_var(va_list ap, char * var)
 	if (!ft_strcmp(var, "h"))
 	{
 		sh = va_arg(ap, int);
-		ret = ft_intlen((int)sh);
+		ret = ft_intlen((int)sh, 10);
 		ft_putnbr((int)sh);
 	}
 	else
 	{
 		arg = va_arg(ap, int);
-		ret = ft_intlen(arg);
+		ret = ft_intlen(arg, 10);
 		str = ft_itoa_base(arg, 8);
 		ft_putstr(str);
 	}
@@ -110,21 +110,59 @@ int		print_unsigned_decimal(va_list ap)
 	arg = va_arg(ap, int);
 	if (arg >= 0)
 	{
-		ret = ft_intlen(arg);
+		ret = ft_intlen(arg, 10);
 		ft_putnbr(arg);
 	}
 	return (ret);
 }
 
-int		print_hex(va_list ap)
+int		print_hex_small(va_list ap)
 {
 	int ret;
 	int arg;
+	int i;
 	char *str;
 
 	ret = 0;
 	arg = va_arg(ap, int);
-	str = ft_itoa_base(arg, 16); ///make print with both capital + lowercase
+	i = 0;
+	if (arg < 0)
+	{
+		ft_putstr_fd("\nError: ", 2);
+		ft_putnbr_fd(arg, 2);
+		ft_putstr_fd(" is not valid input for %x.", 2);
+		exit(0);
+	}
+	str = ft_itoa_base(arg, 16);
+	while (str[i])
+	{
+		if (ft_isalpha(str[i]))
+			str[i] = ft_tolower(str[i]);
+		i++;
+	}
+	ret = ft_strlen(str);
+	ft_putstr(str);
+	return (ret);
+}
+
+int		print_hex_large(va_list ap)
+{
+	int ret;
+	int arg;
+	int i;
+	char *str;
+
+	ret = 0;
+	arg = va_arg(ap, int);
+	i = 0;
+	if (arg < 0)
+	{
+		ft_putstr_fd("\nError: ", 2);
+		ft_putnbr_fd(arg, 2);
+		ft_putstr_fd(" is not valid input for %x.", 2);
+		exit(0);
+	}
+	str = ft_itoa_base(arg, 16);
 	ret = ft_strlen(str);
 	ft_putstr(str);
 	return (ret);
